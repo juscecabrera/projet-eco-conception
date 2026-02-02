@@ -157,6 +157,8 @@ function formatScore($score, $game) {
         }
     </style>
 </head>
+<body class="bg-white text-dark">
+
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
     <div class="container">
@@ -194,23 +196,23 @@ function formatScore($score, $game) {
 <main>
     <div class="container mt-4">
         <h1 class="text-center fw-bold mb-4">Leaderboard</h1>
-        
+
         <!-- Filtres -->
         <div class="text-center mb-4">
             <div class="mb-3">
                 <span class="text-muted me-2">Jeu :</span>
-                <button class="btn btn-outline-dark filter-btn <?php echo $game === 'mot-mele' ? 'active' : ''; ?>" 
+                <button class="btn btn-outline-dark filter-btn <?php echo $game === 'mot-mele' ? 'active' : ''; ?>"
                         data-group="game" data-value="mot-mele">Mot mêlé</button>
-                <button class="btn btn-outline-dark filter-btn <?php echo $game === 'mot-jour' ? 'active' : ''; ?>" 
+                <button class="btn btn-outline-dark filter-btn <?php echo $game === 'mot-jour' ? 'active' : ''; ?>"
                         data-group="game" data-value="mot-jour">Mot du jour</button>
             </div>
             <div>
                 <span class="text-muted me-2">Période :</span>
-                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'jour' ? 'active' : ''; ?>" 
+                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'jour' ? 'active' : ''; ?>"
                         data-group="period" data-value="jour">Aujourd'hui</button>
-                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'semaine' ? 'active' : ''; ?>" 
+                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'semaine' ? 'active' : ''; ?>"
                         data-group="period" data-value="semaine">Cette semaine</button>
-                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'mois' ? 'active' : ''; ?>" 
+                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'mois' ? 'active' : ''; ?>"
                         data-group="period" data-value="mois">Ce mois</button>
             </div>
         </div>
@@ -218,13 +220,13 @@ function formatScore($score, $game) {
         <!-- Podium -->
         <?php if (count($podium) > 0): ?>
         <div class="podium-section">
-            <?php 
+            <?php
             // Réorganiser: 2ème, 1er, 3ème
             $podium_order = [];
             if (isset($podium[1])) $podium_order[] = ['rank' => 2, 'data' => $podium[1], 'class' => 'second'];
             if (isset($podium[0])) $podium_order[] = ['rank' => 1, 'data' => $podium[0], 'class' => 'first'];
             if (isset($podium[2])) $podium_order[] = ['rank' => 3, 'data' => $podium[2], 'class' => 'third'];
-            
+
             foreach ($podium_order as $item):
                 $player = $item['data'];
                 $avatarUrl = $player['avatar'] ? $player['avatar'] : "https://via.placeholder.com/100?text=" . substr($player['pseudo'], 0, 1);
@@ -250,7 +252,7 @@ function formatScore($score, $game) {
         <?php if (count($rest) > 0): ?>
         <div class="card border shadow-sm mt-4">
             <div class="card-body p-0">
-                <?php foreach ($rest as $index => $player): 
+                <?php foreach ($rest as $index => $player):
                     $rank = $index + 4;
                     $isCurrentUser = ($current_user_id && $player['id_utilisateur'] == $current_user_id);
                     $avatarUrl = $player['avatar'] ? $player['avatar'] : "https://via.placeholder.com/40?text=" . substr($player['pseudo'], 0, 1);
