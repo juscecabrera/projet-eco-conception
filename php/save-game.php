@@ -1,35 +1,56 @@
 <?php
+session_start();
 header('Content-Type: application/json');
-
-// =========================================
-// CONNEXION A LA BASE
-// =========================================
 require_once __DIR__ . '/../includes/db.php';
-$conn = $pdo; 
 
-    $input = json_decode(file_get_contents('php://input'), true);
+if (!isset($_SESSION['id'])) {
+    echo json_encode(['success' => false, 'message' => 'Non autorisé']);
+    exit;
+}
 
-    $partie_id = $input['partie_id'] ?? null;
-    $score     = $input['score'] ?? 0;
-    $statut    = $input['statut'] ?? 'defaite';
+$input = json_decode(file_get_contents('php://input'), true);
 
-    if (!$partie_id) {
-        echo json_encode(['success' => false, 'message' => 'ID de partie manquant']);
+$partie_id = $input['partie_id'] ?? null;
+$score     = $input['score'] ?? null;
+$statut    = $input['statut'] ?? 'defaite';
+$user_id   = $_SESSION['id'];
+
+if (!$partie_id || !is_numeric($score) || $score < 0) {
+    echo json_encode(['success' => false, 'message' => 'Données invalides']);
+    exit;
+}
+
+$statuts_valides = ['victoire', 'defaite', 'abandon'];
+if (!in_array($statut, $statuts_valides)) {
+    echo json_encode(['success' => false, 'message' => 'Statut invalide']);
+    exit;
+}
+
+try {
+    $stmt = $pdo->prepare("
+        UPDATE partie
+        SET date_fin = NOW(),
+            score = :score,
+            statut = :statut
+        WHERE id_partie = :id_partie
+          AND id_utilisateur = :user_id
+          AND date_fin IS NULL
+    ");
+
+    $stmt->execute([
+        ':score' => $score,
+        ':statut' => $statut,
+        ':id_partie' => $partie_id,
+        ':user_id' => $user_id
+    ]);
+
+    if ($stmt->rowCount() === 0) {
+        echo json_encode(['success' => false, 'message' => 'Partie introuvable ou déjà terminée']);
         exit;
     }
 
-    $stmt = $conn->prepare("
-        UPDATE partie 
-        SET date_fin = NOW(), 
-            score = :score, 
-            statut = :statut 
-        WHERE id_partie = :id_partie
-    ");
-    $stmt->bindParam(':score', $score, PDO::PARAM_INT);
-    $stmt->bindParam(':statut', $statut);
-    $stmt->bindParam(':id_partie', $partie_id, PDO::PARAM_INT);
-    $stmt->execute();
-
     echo json_encode(['success' => true]);
 
-?>
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Erreur serveur']);
+}
