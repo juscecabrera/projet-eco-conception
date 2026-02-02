@@ -13,7 +13,7 @@ if (isset($_POST["login"])) {
     $email = trim($_POST["email"]);
     $mdp = $_POST["mot_de_passe"];
 
-    $req = $db->prepare("SELECT * FROM utilisateur WHERE email = ?");
+    $req = $db->prepare("SELECT id_utilisateur, pseudo, role, mot_de_passe FROM utilisateur WHERE email = ?");
     $req->execute([$email]);
     $user = $req->fetch(PDO::FETCH_ASSOC);
 
@@ -47,7 +47,8 @@ if (isset($_POST["register"])) {
         $req = $db->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ?");
         $req->execute([$email]);
 
-        if ($req->rowCount() > 0) {
+        $userExists = $req->fetch();
+        if ($userExists) {
             $erreur_register = "Un compte existe déjà avec cet email.";
             $mode = "register";
         } else {
