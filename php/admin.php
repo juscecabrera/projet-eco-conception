@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once __DIR__ . '/cache.php';
+
 
 // ---------- CONFIG DB ----------
 require_once __DIR__ . '/../includes/db.php';
@@ -17,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$role, $id]);
             $messages[] = "Rôle mis à jour.";
         }
+        clearCache("users");
+
+
     }
     // --- Supprimer utilisateur ---
     if ($_POST['action'] === 'delete_user') {
@@ -27,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([':id' => $id]);
             $messages[] = "Utilisateur supprimé.";
         }
+        clearCache("users");
+
     }
     // --- Ajouter grille ---
     if ($_POST['action'] === 'add_grille') {
@@ -50,6 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $messages[] = "Grille ajoutée.";
         }
+        clearCache("grilles");
+
     }
 
     // --- Modifier grille ---
@@ -75,6 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $messages[] = "Grille mise à jour.";
         }
+        clearCache("grilles");
+
     }
 
     // --- Supprimer grille ---
@@ -86,6 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([':id' => $id]);
             $messages[] = "Grille supprimée.";
         }
+        clearCache("grilles");
+
     }
 
     // --- Ajouter mot du jour ---
@@ -106,6 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $messages[] = "Mot du jour ajouté.";
         }
+        clearCache("mots");
+
     }
 
     // --- Modifier mot du jour ---
@@ -127,6 +142,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $messages[] = "Mot du jour modifié.";
         }
+        clearCache("mots");
+
     }
 
     // --- Supprimer mot du jour ---
@@ -139,30 +156,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $messages[] = "Mot du jour supprimé.";
         }
     }
+    clearCache("mots");
+
 }
 
 // ---------- CHARGER DONNÉES ----------
-$users = $conn->query("
-    SELECT id_utilisateur, email, pseudo, role, date_creation
-    FROM utilisateur
-    ORDER BY date_creation DESC
-")->fetchAll(PDO::FETCH_ASSOC);
 
-$grilles = $conn->query("
-    SELECT g.id_grille, g.titre, g.difficulte, g.largeur, g.hauteur, g.date_creation,
-           u.pseudo AS createur
-    FROM grille g
-    LEFT JOIN utilisateur u ON g.id_utilisateur = u.id_utilisateur
-    ORDER BY g.date_creation DESC
-")->fetchAll(PDO::FETCH_ASSOC);
+$users = getCache("users", 60);
 
-$mots = $conn->query("
-    SELECT m.id_mot, m.mot, m.definition, m.date, m.id_utilisateur,
-           u.pseudo AS createur
-    FROM motdujour m
-    LEFT JOIN utilisateur u ON m.id_utilisateur = u.id_utilisateur
-    ORDER BY m.date DESC
-")->fetchAll(PDO::FETCH_ASSOC);
+if ($users === false) {
+
+    $users = $conn->query("
+        SELECT id_utilisateur, email, pseudo, role, date_creation
+        FROM utilisateur
+        ORDER BY date_creation DESC
+    ")->fetchAll(PDO::FETCH_ASSOC);
+
+    setCache("users", $users);
+}
+
+
+
+$grilles = getCache("grilles", 60);
+
+if ($grilles === false) {
+
+    $grilles = $conn->query("
+        SELECT g.id_grille, g.titre, g.difficulte, g.largeur, g.hauteur, g.date_creation,
+               u.pseudo AS createur
+        FROM grille g
+        LEFT JOIN utilisateur u ON g.id_utilisateur = u.id_utilisateur
+        ORDER BY g.date_creation DESC
+    ")->fetchAll(PDO::FETCH_ASSOC);
+
+    setCache("grilles", $grilles);
+}
+
+
+
+$mots = getCache("mots", 60);
+
+if ($mots === false) {
+
+    $mots = $conn->query("
+        SELECT m.id_mot, m.mot, m.definition, m.date, m.id_utilisateur,
+               u.pseudo AS createur
+        FROM motdujour m
+        LEFT JOIN utilisateur u ON m.id_utilisateur = u.id_utilisateur
+        ORDER BY m.date DESC
+    ")->fetchAll(PDO::FETCH_ASSOC);
+
+    setCache("mots", $mots);
+}
+
 
 // Fonction sécurité HTML
 function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
@@ -278,6 +324,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
 
                                 <?php if (!empty($users)): ?>
                                 <?php foreach ($users as $u): ?>
+
                                 <tr>
                                     <td><?= h($u['pseudo']) ?></td>
                                     <td><?= h($u['email']) ?></td>

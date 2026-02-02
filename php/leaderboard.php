@@ -270,6 +270,7 @@ function formatScore($score, $game) {
                 $isCurrentUser = ($current_user_id && $player['id_utilisateur'] == $current_user_id);
                 $avatarUrl = $player['avatar'] ? $player['avatar'] : "https://via.placeholder.com/40?text=" . substr($player['pseudo'], 0, 1);
             ?>
+
             <div class="rank-row <?php echo $isCurrentUser ? 'current-user' : ''; ?>">
                 <div class="rank-number"><?php echo $rank; ?></div>
                 <img src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="" class="rank-avatar">
