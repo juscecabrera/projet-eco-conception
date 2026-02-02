@@ -9,9 +9,7 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        body {
-            font-family: 'Inter';
-        }
+        body {font-family: 'Inter';}
 
         h1 {
             text-align: center;
@@ -91,9 +89,6 @@ session_start();
             padding: 1rem;
         }
 
-        .mots-trouver-div {
-        }
-
         .mots-trouver-div ul {
             width: 100%;
         }
@@ -112,18 +107,9 @@ session_start();
             border-radius: 5px;
             transition: 0.2s;
         }
-
-        .case:hover {
-            background: #d7d7ff;
-        }
-
-        .case.selectionnee {
-            background: #ffe38c;
-        }
-
-        .case.trouvee {
-            background: #afffb0 !important;
-        }
+        .case:hover {background: #d7d7ff;}
+        .case.selectionnee {background: #ffe38c;}
+        .case.trouvee {background: #afffb0 !important;}
 
         .modal-content {
             border: none;
@@ -204,18 +190,9 @@ session_start();
             margin: 0.5rem;
             transition: background-color 0.3s;
         }
-
-        #end-screen button:hover {
-            background-color: #388e3c;
-        }
-
-        #end-screen button:nth-of-type(2) {
-            background-color: #667eea;
-        }
-
-        #end-screen button:nth-of-type(2):hover {
-            background-color: #764ba2;
-        }
+        #end-screen button:hover {background-color: #388e3c;}
+        #end-screen button:nth-of-type(2) {background-color: #667eea;}
+        #end-screen button:nth-of-type(2):hover {background-color: #764ba2;}
     </style>
 </head>
 <body>

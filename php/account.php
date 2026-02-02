@@ -5,9 +5,6 @@ $erreur_login = "";
 $erreur_register = "";
 $mode = isset($_GET["mode"]) ? $_GET["mode"] : "login"; // login par défaut
 
-/* ---------------------------------------
-   TRAITEMENT CONNEXION
---------------------------------------- */
 if (isset($_POST["login"])) {
 
     $email = trim($_POST["email"]);
@@ -30,9 +27,6 @@ if (isset($_POST["login"])) {
     }
 }
 
-/* ---------------------------------------
-   TRAITEMENT INSCRIPTION
---------------------------------------- */
 if (isset($_POST["register"])) {
 
     $email = trim($_POST["email"]);

@@ -81,13 +81,8 @@ function formatScore($score, $game) {
             gap: 20px;
             margin: 40px 0;
         }
-        .podium-item {
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .podium-item:hover {
-            transform: translateY(-5px);
-        }
+        .podium-item { text-align: center; transition: transform 0.3s ease; }
+        .podium-item:hover { transform: translateY(-5px); }
         .podium-avatar {
             width: 80px;
             height: 80px;
@@ -101,12 +96,8 @@ function formatScore($score, $game) {
             height: 100px;
             border-color: #FFD700;
         }
-        .podium-item.second .podium-avatar {
-            border-color: #C0C0C0;
-        }
-        .podium-item.third .podium-avatar {
-            border-color: #CD7F32;
-        }
+        .podium-item.second .podium-avatar { border-color: #C0C0C0; }
+        .podium-item.third .podium-avatar {border-color: #CD7F32;}
         .podium-rank {
             display: inline-block;
             width: 30px;
@@ -140,14 +131,10 @@ function formatScore($score, $game) {
             align-items: center;
             padding: 15px 20px;
             border-bottom: 1px solid #eee;
-            transition: background 0.2s;
+            transition: 0.2s;
         }
-        .rank-row:hover {
-            background-color: #f8f9fa;
-        }
-        .rank-row.current-user {
-            background-color: #e8f4ff;
-        }
+        .rank-row:hover { background-color: #f8f9fa; }
+        .rank-row.current-user { background-color: #e8f4ff; }
         .rank-number {
             width: 40px;
             font-weight: bold;

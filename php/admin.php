@@ -177,7 +177,6 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
         <link rel="stylesheet" href="../css/styles.css">
         <style>
             body { 
-                /* background:#f3f6ff;  */
                 padding-bottom:40px; 
             }
 

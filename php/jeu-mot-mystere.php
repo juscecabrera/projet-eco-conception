@@ -37,10 +37,7 @@ $conn = $pdo;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Mot Mystere</title>
     <style>
-        body {
-            font-family: 'Inter';
-            margin-top: 0rem;
-        }
+        body { font-family: 'Inter'; margin-top: 0rem; }
         /* JEU */
         .game-grid {
             display: grid;
@@ -75,10 +72,7 @@ $conn = $pdo;
             font-size: 30px;
             font-weight: bold;
         }
-
-
         /* KEYBOARD */
-
         .keyboard-container {
             width: 100%;
             margin-top: 10%;
@@ -115,11 +109,7 @@ $conn = $pdo;
             transition: ease-in 0.2s;
         }
 
-
-        .keyboard {
-            width: 50%;
-        }
-
+        .keyboard {width: 50%;}
 
         .page-container {
             width: 100%;
@@ -184,9 +174,7 @@ $conn = $pdo;
             cursor: pointer;
         }
 
-        #end-screen button:hover {
-            background-color: #388e3c;
-        }
+        #end-screen button:hover {background-color: #388e3c;}
     </style>
 </head>
 <main>
@@ -505,18 +493,14 @@ $conn = $pdo;
 
             if (isGreen[i]) {
                 correctCount++
-                // updateKeyboard(letter, 'correct')
                 continue;
             }
 
             if (letterCount[letter] > 0) {
                 correctCellElement.style = 'background-color: #e4a81d; color: white;'
                 letterCount[letter] = letterCount[letter] - 1
-                // updateKeyboard(letter, 'misplaced')
             } else {
                 correctCellElement.style = 'background-color: #757575; color: white;'
-
-                // updateKeyboard(letter, 'absent')
             }
         }
 
