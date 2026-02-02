@@ -21,42 +21,38 @@ if ($game === 'mot-mele') {
 
 // Construction de la condition de période
 switch ($period) {
-    case 'jour':
-        $period_condition = "DATE(p.date_fin) = CURDATE()";
-        break;
-    case 'semaine':
-        $period_condition = "p.date_fin >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
-        break;
-    case 'mois':
-    default:
-        $period_condition = "p.date_fin >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
-        break;
+    case 'jour': $date_start = date('Y-m-d 00:00:00'); break;
+    case 'semaine': $date_start = date('Y-m-d H:i:s', strtotime('-7 days')); break;
+    default: $date_start = date('Y-m-d H:i:s', strtotime('-30 days'));
 }
+
 
 // Requête pour obtenir le classement
 $sql = "
-    SELECT 
-        u.id_utilisateur,
-        u.pseudo,
-        u.avatar,
-        MAX(p.score) as best_score
-    FROM partie p
-    INNER JOIN utilisateur u ON p.id_utilisateur = u.id_utilisateur
-    WHERE {$game_condition} 
-      AND p.date_fin IS NOT NULL
-      AND {$period_condition}
-    GROUP BY u.id_utilisateur, u.pseudo, u.avatar
-    ORDER BY best_score {$order_direction}
-    LIMIT 20
+SELECT u.id_utilisateur, u.pseudo, u.avatar,
+       MIN(p.score) as best_score
+FROM partie p
+JOIN utilisateur u ON p.id_utilisateur = u.id_utilisateur
+WHERE p.date_fin IS NOT NULL
+  AND {$game_condition}
+  AND p.date_fin >= :date_start
+GROUP BY u.id_utilisateur
+ORDER BY best_score ASC
+LIMIT 20
 ";
 
 $stmt = $db->prepare($sql);
-$stmt->execute();
-$leaderboard = $stmt->fetchAll();
+$stmt->execute(['date_start' => $date_start]);
+
+$leaderboard = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Séparer podium et reste
-$podium = array_slice($leaderboard, 0, 3);
-$rest = array_slice($leaderboard, 3);
+$podium = [];
+$rest = [];
+
+foreach ($leaderboard as $i => $row) {
+    $i < 3 ? $podium[] = $row : $rest[] = $row;
+}
 
 // Fonction pour formater le score
 function formatScore($score, $game) {
