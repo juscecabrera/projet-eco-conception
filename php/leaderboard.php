@@ -73,6 +73,7 @@ function formatScore($score, $game) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mot du Jour et Mots Melees">
     <title>Leaderboard - JeuxNova</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
@@ -173,16 +174,14 @@ function formatScore($score, $game) {
         }
     </style>
 </head>
-<body class="bg-white text-dark">
-
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="../index.php">
-            <img src="../assets/logo.png" alt="Logo" height="40" class="me-2">
+            <img src="../assets/logo.webp" alt="Logo" height="40" class="me-2" loading="lazy">
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="button">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -205,90 +204,94 @@ function formatScore($score, $game) {
         </div>
     </div>
 </nav>
+<body class="bg-white text-dark">
+
 
 <!-- CONTENU -->
-<div class="container mt-4">
-    <h1 class="text-center fw-bold mb-4">Leaderboard</h1>
-    
-    <!-- Filtres -->
-    <div class="text-center mb-4">
-        <div class="mb-3">
-            <span class="text-muted me-2">Jeu :</span>
-            <button class="btn btn-outline-dark filter-btn <?php echo $game === 'mot-mele' ? 'active' : ''; ?>" 
-                    data-group="game" data-value="mot-mele">Mot mêlé</button>
-            <button class="btn btn-outline-dark filter-btn <?php echo $game === 'mot-jour' ? 'active' : ''; ?>" 
-                    data-group="game" data-value="mot-jour">Mot du jour</button>
-        </div>
-        <div>
-            <span class="text-muted me-2">Période :</span>
-            <button class="btn btn-outline-dark filter-btn <?php echo $period === 'jour' ? 'active' : ''; ?>" 
-                    data-group="period" data-value="jour">Aujourd'hui</button>
-            <button class="btn btn-outline-dark filter-btn <?php echo $period === 'semaine' ? 'active' : ''; ?>" 
-                    data-group="period" data-value="semaine">Cette semaine</button>
-            <button class="btn btn-outline-dark filter-btn <?php echo $period === 'mois' ? 'active' : ''; ?>" 
-                    data-group="period" data-value="mois">Ce mois</button>
-        </div>
-    </div>
-
-    <!-- Podium -->
-    <?php if (count($podium) > 0): ?>
-    <div class="podium-section">
-        <?php 
-        // Réorganiser: 2ème, 1er, 3ème
-        $podium_order = [];
-        if (isset($podium[1])) $podium_order[] = ['rank' => 2, 'data' => $podium[1], 'class' => 'second'];
-        if (isset($podium[0])) $podium_order[] = ['rank' => 1, 'data' => $podium[0], 'class' => 'first'];
-        if (isset($podium[2])) $podium_order[] = ['rank' => 3, 'data' => $podium[2], 'class' => 'third'];
+<main>
+    <div class="container mt-4">
+        <h1 class="text-center fw-bold mb-4">Leaderboard</h1>
         
-        foreach ($podium_order as $item):
-            $player = $item['data'];
-            $avatarUrl = $player['avatar'] ? $player['avatar'] : "https://via.placeholder.com/100?text=" . substr($player['pseudo'], 0, 1);
-        ?>
-        <div class="podium-item <?php echo $item['class']; ?>">
-            <?php if ($item['rank'] === 1): ?>
-                <div class="crown">👑</div>
-            <?php endif; ?>
-            <img src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="Avatar" class="podium-avatar">
-            <div class="podium-rank"><?php echo $item['rank']; ?></div>
-            <div class="fw-bold mt-2"><?php echo htmlspecialchars($player['pseudo']); ?></div>
-            <div class="text-muted"><?php echo formatScore($player['best_score'], $game); ?></div>
+        <!-- Filtres -->
+        <div class="text-center mb-4">
+            <div class="mb-3">
+                <span class="text-muted me-2">Jeu :</span>
+                <button class="btn btn-outline-dark filter-btn <?php echo $game === 'mot-mele' ? 'active' : ''; ?>" 
+                        data-group="game" data-value="mot-mele">Mot mêlé</button>
+                <button class="btn btn-outline-dark filter-btn <?php echo $game === 'mot-jour' ? 'active' : ''; ?>" 
+                        data-group="game" data-value="mot-jour">Mot du jour</button>
+            </div>
+            <div>
+                <span class="text-muted me-2">Période :</span>
+                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'jour' ? 'active' : ''; ?>" 
+                        data-group="period" data-value="jour">Aujourd'hui</button>
+                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'semaine' ? 'active' : ''; ?>" 
+                        data-group="period" data-value="semaine">Cette semaine</button>
+                <button class="btn btn-outline-dark filter-btn <?php echo $period === 'mois' ? 'active' : ''; ?>" 
+                        data-group="period" data-value="mois">Ce mois</button>
+            </div>
         </div>
-        <?php endforeach; ?>
-    </div>
-    <?php else: ?>
-    <div class="text-center py-5">
-        <p class="text-muted fs-5">Aucun résultat pour cette période.</p>
-    </div>
-    <?php endif; ?>
 
-    <!-- Classement étendu -->
-    <?php if (count($rest) > 0): ?>
-    <div class="card border shadow-sm mt-4">
-        <div class="card-body p-0">
-            <?php foreach ($rest as $index => $player): 
-                $rank = $index + 4;
-                $isCurrentUser = ($current_user_id && $player['id_utilisateur'] == $current_user_id);
-                $avatarUrl = $player['avatar'] ? $player['avatar'] : "https://via.placeholder.com/40?text=" . substr($player['pseudo'], 0, 1);
+        <!-- Podium -->
+        <?php if (count($podium) > 0): ?>
+        <div class="podium-section">
+            <?php 
+            // Réorganiser: 2ème, 1er, 3ème
+            $podium_order = [];
+            if (isset($podium[1])) $podium_order[] = ['rank' => 2, 'data' => $podium[1], 'class' => 'second'];
+            if (isset($podium[0])) $podium_order[] = ['rank' => 1, 'data' => $podium[0], 'class' => 'first'];
+            if (isset($podium[2])) $podium_order[] = ['rank' => 3, 'data' => $podium[2], 'class' => 'third'];
+            
+            foreach ($podium_order as $item):
+                $player = $item['data'];
+                $avatarUrl = $player['avatar'] ? $player['avatar'] : "https://via.placeholder.com/100?text=" . substr($player['pseudo'], 0, 1);
             ?>
-            <div class="rank-row <?php echo $isCurrentUser ? 'current-user' : ''; ?>">
-                <div class="rank-number"><?php echo $rank; ?></div>
-                <img src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="" class="rank-avatar">
-                <div class="rank-name"><?php echo $isCurrentUser ? 'Vous' : htmlspecialchars($player['pseudo']); ?></div>
-                <div class="rank-score"><?php echo formatScore($player['best_score'], $game); ?></div>
+            <div class="podium-item <?php echo $item['class']; ?>">
+                <?php if ($item['rank'] === 1): ?>
+                    <div class="crown">👑</div>
+                <?php endif; ?>
+                <img src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="Avatar" class="podium-avatar" loading="lazy">
+                <div class="podium-rank"><?php echo $item['rank']; ?></div>
+                <div class="fw-bold mt-2"><?php echo htmlspecialchars($player['pseudo']); ?></div>
+                <div class="text-muted"><?php echo formatScore($player['best_score'], $game); ?></div>
             </div>
             <?php endforeach; ?>
         </div>
-    </div>
-    <?php elseif (count($podium) >= 3): ?>
-    <div class="text-center py-4">
-        <p class="text-muted">Pas assez de joueurs pour afficher un classement étendu.</p>
-    </div>
-    <?php endif; ?>
+        <?php else: ?>
+        <div class="text-center py-5">
+            <p class="text-muted fs-5">Aucun résultat pour cette période.</p>
+        </div>
+        <?php endif; ?>
 
-</div>
+        <!-- Classement étendu -->
+        <?php if (count($rest) > 0): ?>
+        <div class="card border shadow-sm mt-4">
+            <div class="card-body p-0">
+                <?php foreach ($rest as $index => $player): 
+                    $rank = $index + 4;
+                    $isCurrentUser = ($current_user_id && $player['id_utilisateur'] == $current_user_id);
+                    $avatarUrl = $player['avatar'] ? $player['avatar'] : "https://via.placeholder.com/40?text=" . substr($player['pseudo'], 0, 1);
+                ?>
+                <div class="rank-row <?php echo $isCurrentUser ? 'current-user' : ''; ?>">
+                    <div class="rank-number"><?php echo $rank; ?></div>
+                    <img src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="" class="rank-avatar" loading="lazy">
+                    <div class="rank-name"><?php echo $isCurrentUser ? 'Vous' : htmlspecialchars($player['pseudo']); ?></div>
+                    <div class="rank-score"><?php echo formatScore($player['best_score'], $game); ?></div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php elseif (count($podium) >= 3): ?>
+        <div class="text-center py-4">
+            <p class="text-muted">Pas assez de joueurs pour afficher un classement étendu.</p>
+        </div>
+        <?php endif; ?>
+
+    </div>
+</main>
 
 <!-- FOOTER -->
-<footer class="mt-5 py-4 bg-light border-top text-center text-secondary">
+<footer class="bg-secondary mt-5 py-4 bg-light border-top text-center text-secondary" style="background-color: black;">
     <div class="container">
         <p class="mb-1">© 2025 JeuxNova — Tous droits réservés</p>
         <small>Contact : support@jeuxnova.com</small>

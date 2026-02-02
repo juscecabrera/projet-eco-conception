@@ -32,8 +32,8 @@ $conn = $pdo;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mot du Jour et Mots Melees">
     <link rel="stylesheet" href="../css/styles.css">
-    <script src="/js/mot-mystere.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Mot Mystere</title>
     <style>
@@ -189,159 +189,161 @@ $conn = $pdo;
         }
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="../index.php">
-                <img src="../assets/logo.png" alt="Logo" height="40" class="me-2">
-            </a>
+<main>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="../index.php">
+                    <img src="../assets/logo.webp" alt="Logo" height="40" class="me-2" loading="lazy">
+                </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav navbar-nav-centered">
-                    <li class="nav-item"><a class="nav-link fw-semibold" href="mots.php">Jeux</a></li>
-                    <li class="nav-item"><a class="nav-link fw-semibold" href="leaderboard.php">Leaderboard</a></li>
-                </ul>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav navbar-nav-centered">
+                        <li class="nav-item"><a class="nav-link fw-semibold" href="mots.php">Jeux</a></li>
+                        <li class="nav-item"><a class="nav-link fw-semibold" href="leaderboard.php">Leaderboard</a></li>
+                    </ul>
 
-                <div class="d-flex ms-auto nav-auth">
-                <?php if (isset($_SESSION["id"])): ?>
-                    <a class="btn btn-outline-dark me-2" href="admin.php">Admin</a>
-                    <a class="btn btn-outline-dark me-2" href="profil.php">Mon Profil</a>
-                    <a class="btn btn-dark" href="deconexion.php">Déconnexion</a>
-                <?php else: ?>
-                    <a class="btn btn-outline-dark me-2" href="account.php?mode=login">Connexion</a>
-                    <a class="btn btn-dark" href="account.php?mode=register">S'inscrire</a>
-                <?php endif; ?>
+                    <div class="d-flex ms-auto nav-auth">
+                    <?php if (isset($_SESSION["id"])): ?>
+                        <a class="btn btn-outline-dark me-2" href="admin.php">Admin</a>
+                        <a class="btn btn-outline-dark me-2" href="profil.php">Mon Profil</a>
+                        <a class="btn btn-dark" href="deconexion.php">Déconnexion</a>
+                    <?php else: ?>
+                        <a class="btn btn-outline-dark me-2" href="account.php?mode=login">Connexion</a>
+                        <a class="btn btn-dark" href="account.php?mode=register">S'inscrire</a>
+                    <?php endif; ?>
+                </div>
+                </div>
             </div>
+        </nav>
+        <div class="page-container">
+            <!-- <p style="color: red; font-weight: bold;"><?php echo $motMystere; ?></p> -->
+            <h1 class="page-title mt-4">Mot du Jour</h1>
+            <div class="grid-container">
+                <div class="game-grid">
+                    <div class="game-row">
+                        <div class="game-letter" data-row="0" data-col="0" id="game-letter-container-1">
+                        </div>
+                        <div class="game-letter"  data-row="0" data-col="1" id="game-letter-container-2">
+                        </div>
+                        <div class="game-letter"  data-row="0" data-col="2" id="game-letter-container-3">
+                        </div>
+                        <div class="game-letter"  data-row="0" data-col="3" id="game-letter-container-4">
+                        </div>
+                        <div class="game-letter"  data-row="0" data-col="4" id="game-letter-container-5">
+                        </div>
+                    </div>
+                    <div class="game-row">
+                        <div class="game-letter" data-row="1" data-col="0" id="game-letter-container-6">
+                        </div>
+                        <div class="game-letter" data-row="1" data-col="1" id="game-letter-container-7">
+                        </div>
+                        <div class="game-letter" data-row="1" data-col="2" id="game-letter-container-8">
+                        </div>
+                        <div class="game-letter" data-row="1" data-col="3" id="game-letter-container-9">
+                        </div>
+                        <div class="game-letter" data-row="1" data-col="4" id="game-letter-container-10">
+                        </div>
+                    </div>
+                    <div class="game-row">
+                        <div class="game-letter" data-row="2" data-col="0" id="game-letter-container-11">
+                        </div>
+                        <div class="game-letter" data-row="2" data-col="1" id="game-letter-container-12">
+                        </div>
+                        <div class="game-letter" data-row="2" data-col="2" id="game-letter-container-13">
+                        </div>
+                        <div class="game-letter" data-row="2" data-col="3" id="game-letter-container-14">
+                        </div>
+                        <div class="game-letter" data-row="2" data-col="4" id="game-letter-container-15">
+                        </div>
+                    </div>
+                    <div class="game-row">
+                        <div class="game-letter" data-row="3" data-col="0" id="game-letter-container-16">
+                        </div>
+                        <div class="game-letter" data-row="3" data-col="1" id="game-letter-container-17">
+                        </div>
+                        <div class="game-letter" data-row="3" data-col="2" id="game-letter-container-18">
+                        </div>
+                        <div class="game-letter" data-row="3" data-col="3" id="game-letter-container-19">
+                        </div>
+                        <div class="game-letter" data-row="3" data-col="4" id="game-letter-container-20">
+                        </div>
+                    </div>
+                    <div class="game-row">
+                        <div class="game-letter" data-row="4" data-col="0" id="game-letter-container-21">
+                        </div>
+                        <div class="game-letter" data-row="4" data-col="1" id="game-letter-container-22">
+                        </div>
+                        <div class="game-letter" data-row="4" data-col="2" id="game-letter-container-23">
+                        </div>
+                        <div class="game-letter" data-row="4" data-col="3" id="game-letter-container-24">
+                        </div>
+                        <div class="game-letter" data-row="4" data-col="4" id="game-letter-container-25">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="keyboard">
+                <div class="keyboard-container">
+                    <div class="keyboard-row">
+                        <div id="keyboard-letter-1">Q</div>
+                        <div id="keyboard-letter-2">W</div>
+                        <div id="keyboard-letter-3">E</div>
+                        <div id="keyboard-letter-4">R</div>
+                        <div id="keyboard-letter-5">T</div>
+                        <div id="keyboard-letter-6">Y</div>
+                        <div id="keyboard-letter-7">U</div>
+                        <div id="keyboard-letter-8">I</div>
+                        <div id="keyboard-letter-9">O</div>
+                        <div id="keyboard-letter-10">P</div>
+                    </div>
+        
+                    <div class="keyboard-row">
+                        <div id="keyboard-letter-11">A</div>
+                        <div id="keyboard-letter-12">S</div>
+                        <div id="keyboard-letter-13">D</div>
+                        <div id="keyboard-letter-14">F</div>
+                        <div id="keyboard-letter-15">G</div>
+                        <div id="keyboard-letter-16">H</div>
+                        <div id="keyboard-letter-17">J</div>
+                        <div id="keyboard-letter-18">K</div>
+                        <div id="keyboard-letter-19">L</div>
+                    </div>
+        
+                    <div class="keyboard-row">
+                        <div><img src="../assets/check.svg" alt="check image" class="check" loading="lazy"></div>
+                        <div id="keyboard-letter-20">Z</div>
+                        <div id="keyboard-letter-21">X</div>
+                        <div id="keyboard-letter-22">C</div>
+                        <div id="keyboard-letter-23">V</div>
+                        <div id="keyboard-letter-24">B</div>
+                        <div id="keyboard-letter-25">N</div>
+                        <div id="keyboard-letter-26">M</div>
+                        <div><img src="../assets/backspace.svg" alt="backspace" class="backspace" loading="lazy"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </nav>
-    <div class="page-container">
-        <!-- <p style="color: red; font-weight: bold;"><?php echo $motMystere; ?></p> -->
-        <h1 class="page-title mt-4">Mot du Jour</h1>
-        <div class="grid-container">
-            <div class="game-grid">
-                <div class="game-row">
-                    <div class="game-letter" data-row="0" data-col="0" id="game-letter-container-1">
-                    </div>
-                    <div class="game-letter"  data-row="0" data-col="1" id="game-letter-container-2">
-                    </div>
-                    <div class="game-letter"  data-row="0" data-col="2" id="game-letter-container-3">
-                    </div>
-                    <div class="game-letter"  data-row="0" data-col="3" id="game-letter-container-4">
-                    </div>
-                    <div class="game-letter"  data-row="0" data-col="4" id="game-letter-container-5">
-                    </div>
-                </div>
-                <div class="game-row">
-                    <div class="game-letter" data-row="1" data-col="0" id="game-letter-container-6">
-                    </div>
-                    <div class="game-letter" data-row="1" data-col="1" id="game-letter-container-7">
-                    </div>
-                    <div class="game-letter" data-row="1" data-col="2" id="game-letter-container-8">
-                    </div>
-                    <div class="game-letter" data-row="1" data-col="3" id="game-letter-container-9">
-                    </div>
-                    <div class="game-letter" data-row="1" data-col="4" id="game-letter-container-10">
-                    </div>
-                </div>
-                <div class="game-row">
-                    <div class="game-letter" data-row="2" data-col="0" id="game-letter-container-11">
-                    </div>
-                    <div class="game-letter" data-row="2" data-col="1" id="game-letter-container-12">
-                    </div>
-                    <div class="game-letter" data-row="2" data-col="2" id="game-letter-container-13">
-                    </div>
-                    <div class="game-letter" data-row="2" data-col="3" id="game-letter-container-14">
-                    </div>
-                    <div class="game-letter" data-row="2" data-col="4" id="game-letter-container-15">
-                    </div>
-                </div>
-                <div class="game-row">
-                    <div class="game-letter" data-row="3" data-col="0" id="game-letter-container-16">
-                    </div>
-                    <div class="game-letter" data-row="3" data-col="1" id="game-letter-container-17">
-                    </div>
-                    <div class="game-letter" data-row="3" data-col="2" id="game-letter-container-18">
-                    </div>
-                    <div class="game-letter" data-row="3" data-col="3" id="game-letter-container-19">
-                    </div>
-                    <div class="game-letter" data-row="3" data-col="4" id="game-letter-container-20">
-                    </div>
-                </div>
-                <div class="game-row">
-                    <div class="game-letter" data-row="4" data-col="0" id="game-letter-container-21">
-                    </div>
-                    <div class="game-letter" data-row="4" data-col="1" id="game-letter-container-22">
-                    </div>
-                    <div class="game-letter" data-row="4" data-col="2" id="game-letter-container-23">
-                    </div>
-                    <div class="game-letter" data-row="4" data-col="3" id="game-letter-container-24">
-                    </div>
-                    <div class="game-letter" data-row="4" data-col="4" id="game-letter-container-25">
-                    </div>
-                </div>
-            </div>
+
+        
+        <div id="end-screen">
+            <h2 id="end-title"></h2>
+            <p id="end-message"></p>
+            <p id="end-points"></p>
+            <p id="end-word" style="font-size: 2rem; margin-top: 1rem;"></p>
+            <button onclick="location.reload()">Jouer à nouveau</button>
+            <a href="mots.php"><button>Retour à l'accueil</button></a>
         </div>
 
-        <div class="keyboard">
-            <div class="keyboard-container">
-                <div class="keyboard-row">
-                    <div id="keyboard-letter-1">Q</div>
-                    <div id="keyboard-letter-2">W</div>
-                    <div id="keyboard-letter-3">E</div>
-                    <div id="keyboard-letter-4">R</div>
-                    <div id="keyboard-letter-5">T</div>
-                    <div id="keyboard-letter-6">Y</div>
-                    <div id="keyboard-letter-7">U</div>
-                    <div id="keyboard-letter-8">I</div>
-                    <div id="keyboard-letter-9">O</div>
-                    <div id="keyboard-letter-10">P</div>
-                </div>
-    
-                <div class="keyboard-row">
-                    <div id="keyboard-letter-11">A</div>
-                    <div id="keyboard-letter-12">S</div>
-                    <div id="keyboard-letter-13">D</div>
-                    <div id="keyboard-letter-14">F</div>
-                    <div id="keyboard-letter-15">G</div>
-                    <div id="keyboard-letter-16">H</div>
-                    <div id="keyboard-letter-17">J</div>
-                    <div id="keyboard-letter-18">K</div>
-                    <div id="keyboard-letter-19">L</div>
-                </div>
-    
-                <div class="keyboard-row">
-                    <div><img src="../assets/check.svg" alt="check image" class="check" ></div>
-                    <div id="keyboard-letter-20">Z</div>
-                    <div id="keyboard-letter-21">X</div>
-                    <div id="keyboard-letter-22">C</div>
-                    <div id="keyboard-letter-23">V</div>
-                    <div id="keyboard-letter-24">B</div>
-                    <div id="keyboard-letter-25">N</div>
-                    <div id="keyboard-letter-26">M</div>
-                    <div><img src="../assets/backspace.svg" alt="backspace" class="backspace"></div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    
-    <div id="end-screen">
-        <h2 id="end-title"></h2>
-        <p id="end-message"></p>
-        <p id="end-points"></p>
-        <p id="end-word" style="font-size: 2rem; margin-top: 1rem;"></p>
-        <button onclick="location.reload()">Jouer à nouveau</button>
-        <a href="mots.php"><button>Retour à l'accueil</button></a>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    </body>
+</main>
 <script>
     let magicWord = '<?php echo $motMystere; ?>'
     let currentRow = 0 //0 a 4

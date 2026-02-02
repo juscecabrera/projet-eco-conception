@@ -4,9 +4,11 @@ session_start();
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
     <title>JeuxNova – Jeux de mots quotidiens</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="motjeu, mot de jour">
+    <meta name="description" content="Mot du Jour et Mots Melees">
     <style>
         body {
             font-family: 'Inter';font-size: 22px;
@@ -16,17 +18,17 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
-
+<meta>
 <body class="bg-white text-dark">
 
 <!-- ================= NAVBAR ================= -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="./assets/logo.png" alt="Logo" height="40" class="me-2">
+            <img src="./assets/logo.webp" alt="Logo" height="40" width="150" class="me-2" loading="lazy">
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="button">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -105,7 +107,7 @@ session_start();
             <div class="col-md-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <h5 class="fw-semibold">Mot du jour</h5>
+                        <h3 class="fw-semibold">Mot du jour</h3>
                         <p>
                             Un mot identique pour tous les joueurs chaque jour,
                             avec un système de score basé sur votre performance.
@@ -117,7 +119,7 @@ session_start();
             <div class="col-md-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <h5 class="fw-semibold">Mots fléchés</h5>
+                        <h3 class="fw-semibold">Mots fléchés</h3>
                         <p>
                             Des grilles de différents niveaux de difficulté,
                             conçues pour s’adapter à tous les profils de joueurs.
@@ -129,7 +131,7 @@ session_start();
             <div class="col-md-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                        <h5 class="fw-semibold">Leaderboard</h5>
+                        <h3 class="fw-semibold">Leaderboard</h3>
                         <p>
                             Comparez vos résultats avec les autres joueurs
                             grâce à un classement mis à jour automatiquement.
@@ -168,7 +170,7 @@ session_start();
 </main>
 
 <!-- ================= FOOTER ================= -->
-<footer class="bg-light border-top py-4 text-center text-secondary">
+<footer class="bg-secondary border-top py-4 text-center text-secondary">
     <div class="container">
         <p class="mb-1">© 2025 JeuxNova — Tous droits réservés</p>
         <small>
