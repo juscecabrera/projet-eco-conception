@@ -32,7 +32,7 @@ loadEnv($envPath);
 
 $host = getenv('MYSQLHOST') ?: 'localhost';
 $port = getenv('MYSQLPORT') ?: '3306';
-$dbname = getenv('MYSQLDATABASE') ?: 'railway';
+$dbname = getenv('MYSQLDATABASE') ?: 'bdd_nova';
 $username = getenv('MYSQLUSER') ?: 'root';
 $password = getenv('MYSQLPASSWORD') ?: '';
 $charset = getenv('DB_CHARSET') ?: 'utf8mb4';
