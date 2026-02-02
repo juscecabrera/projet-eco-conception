@@ -11,7 +11,7 @@ $root = ($basePath === '') ? '/' : $basePath . '/';
     <nav class="navbar">
         <div class="logo">
             <a href="<?php echo $root; ?>index.php">
-                <img src="<?php echo $root; ?>assets/logo.png" alt="Logo" style="height: 40px;">
+                <img src="<?php echo $root; ?>assets/logo.webp" alt="Logo" style="height: 40px;" loading="lazy">
             </a>
         </div>
         <ul class="nav-links">

@@ -13,7 +13,7 @@ if (isset($_POST["login"])) {
     $email = trim($_POST["email"]);
     $mdp = $_POST["mot_de_passe"];
 
-    $req = $db->prepare("SELECT * FROM utilisateur WHERE email = ?");
+    $req = $db->prepare("SELECT id_utilisateur, pseudo, role, mot_de_passe FROM utilisateur WHERE email = ?");
     $req->execute([$email]);
     $user = $req->fetch(PDO::FETCH_ASSOC);
 
@@ -47,7 +47,8 @@ if (isset($_POST["register"])) {
         $req = $db->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ?");
         $req->execute([$email]);
 
-        if ($req->rowCount() > 0) {
+        $userExists = $req->fetch();
+        if ($userExists) {
             $erreur_register = "Un compte existe déjà avec cet email.";
             $mode = "register";
         } else {
@@ -79,10 +80,10 @@ if (isset($_POST["register"])) {
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="../index.php">
-            <img src="../assets/logo.png" alt="Logo" height="40" class="me-2">
+            <img src="../assets/logo.webp" alt="Logo" height="40" class="me-2" loading="lazy">
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="button">
             <span class="navbar-toggler-icon"></span>
         </button>
 

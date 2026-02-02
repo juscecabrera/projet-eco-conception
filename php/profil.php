@@ -8,7 +8,6 @@ $message = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     $new_pseudo = trim($_POST['pseudo']);
     $new_bio = trim($_POST['bio']);
-
     
     try {
         $stmt = $db->prepare("UPDATE utilisateur SET pseudo = ?, bio = ? WHERE id_utilisateur = ?");
@@ -123,35 +122,8 @@ $historique = $stmt->fetchAll();
 <body class="bg-white text-dark">
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="../index.php">
-            <img src="../assets/logo.png" alt="Logo" height="40" class="me-2">
-        </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navMenu">
-            <ul class="navbar-nav navbar-nav-centered">
-                <li class="nav-item"><a class="nav-link fw-semibold" href="mots.php">Jeux</a></li>
-                <li class="nav-item"><a class="nav-link fw-semibold" href="leaderboard.php">Leaderboard</a></li>
-            </ul>
-
-            <div class="d-flex ms-auto nav-auth">
-                <?php if (isset($_SESSION["id"])): ?>
-                    <a class="btn btn-outline-dark me-2" href="admin.php">Admin</a>
-                    <a class="btn btn-outline-dark me-2" href="profil.php">Mon Profil</a>
-                    <a class="btn btn-dark" href="deconexion.php">Déconnexion</a>
-                <?php else: ?>
-                    <a class="btn btn-outline-dark me-2" href="account.php?mode=login">Connexion</a>
-                    <a class="btn btn-dark" href="account.php?mode=register">S'inscrire</a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</nav>
+<?= include "navbar.php"?>
 
 <!-- CONTENU -->
 <div class="container mt-5">
@@ -170,7 +142,7 @@ $historique = $stmt->fetchAll();
                  class="rounded-circle border shadow" 
                  width="120" height="120" 
                  style="object-fit: cover;"
-                 alt="Avatar">
+                 alt="Avatar" loading="lazy">
         </div>
         <div class="col">
             <h1 class="fw-bold mb-2"><?php echo htmlspecialchars($user['pseudo']); ?></h1>
@@ -178,7 +150,7 @@ $historique = $stmt->fetchAll();
         </div>
         <div class="col-auto">
             <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#editModal">
-                ✏️ Modifier le profil
+                Modifier le profil
             </button>
         </div>
     </div>
@@ -188,21 +160,21 @@ $historique = $stmt->fetchAll();
     <div class="row g-4 mb-5">
         <div class="col-md-4">
             <div class="card border shadow-sm text-center p-4 h-100">
-                <h5 class="fw-bold text-primary mb-3">🔤 Mots mêlés</h5>
+                <h3 class="fw-bold text-primary mb-3">🔤 Mots mêlés</h3>
                 <p class="display-5 fw-bold mb-1"><?php echo $temps_moyen_str; ?></p>
                 <small class="text-muted">Temps moyen</small>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card border shadow-sm text-center p-4 h-100">
-                <h5 class="fw-bold text-primary mb-3">📅 Mot du jour</h5>
+                <h3 class="fw-bold text-primary mb-3">📅 Mot du jour</h3>
                 <p class="display-5 fw-bold mb-1"><?php echo $moy_essais; ?></p>
                 <small class="text-muted">Score moyen</small>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card border shadow-sm text-center p-4 h-100">
-                <h5 class="fw-bold text-primary mb-3">🎮 Total</h5>
+                <h3 class="fw-bold text-primary mb-3">🎮 Total</h3>
                 <p class="display-5 fw-bold mb-1"><?php echo $total_parties; ?></p>
                 <small class="text-muted">Parties jouées</small>
             </div>
@@ -284,7 +256,7 @@ $historique = $stmt->fetchAll();
             <input type="hidden" name="update_profile" value="1">
             
             <div class="modal-header">
-                <h5 class="modal-title">Modifier le profil</h5>
+                <h3 class="modal-title">Modifier le profil</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             

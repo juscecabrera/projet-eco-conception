@@ -3,7 +3,6 @@ session_start();
 require_once __DIR__ . '/cache.php';
 
 
-// ---------- CONFIG DB ----------
 require_once __DIR__ . '/../includes/db.php';
 $conn = $pdo;
 $messages = [];
@@ -218,6 +217,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
 <html lang="fr">
     <head>
         <meta charset="utf-8">
+        <meta name="description" content="Mot du Jour et Mots Melees">
         <title>Admin - Gestion</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/styles.css">
@@ -253,35 +253,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="../index.php">
-                    <img src="../assets/logo.png" alt="Logo" height="40" class="me-2">
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav navbar-nav-centered">
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="mots.php">Jeux</a></li>
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="leaderboard.php">Leaderboard</a></li>
-                    </ul>
-
-                    <div class="d-flex ms-auto nav-auth">
-                        <?php if (isset($_SESSION["id"])): ?>
-                            <a class="btn btn-outline-dark me-2" href="admin.php">Admin</a>
-                            <a class="btn btn-outline-dark me-2" href="profil.php">Mon Profil</a>
-                            <a class="btn btn-dark" href="deconexion.php">Déconnexion</a>
-                        <?php else: ?>
-                            <a class="btn btn-outline-dark me-2" href="account.php?mode=login">Connexion</a>
-                            <a class="btn btn-dark" href="account.php?mode=register">S'inscrire</a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <?= include "navbar.php"?>
         <div class="container mt-4">
             <div class="topbar d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Admin — Gestion Utilisateurs, Grilles & Mots du Jour</h4>
@@ -291,7 +263,6 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                 </div>
             </div>
 
-            <!-- messages -->
             <?php if (!empty($messages)): ?>
                 <div class="mb-3">
                     <?php foreach ($messages as $m): ?>
@@ -305,7 +276,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                 <div class="col-12 col-lg-6">
                     <div class="panel">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0">Utilisateurs</h5>
+                            <h3 class="mb-0">Utilisateurs</h3>
                             <span class="small-muted"><?= count($users) ?> total</span>
                         </div>
 
@@ -362,7 +333,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                 <div class="col-12 col-lg-6">
                     <div class="panel">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0">Grilles (Mots Melees)</h5>
+                            <h3 class="mb-0">Grilles (Mots Melees)</h3>
                             <span class="small-muted"><?= count($grilles) ?> total</span>
                         </div>
 
@@ -424,7 +395,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                 <div class="col-12">
                     <div class="panel">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0">Mots du Jour</h5>
+                            <h3 class="mb-0">Mots du Jour</h3>
                             <span class="small-muted"><?= count($mots) ?> total</span>
                         </div>
 
@@ -489,7 +460,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                     <input type="hidden" name="action" value="add_mot">
 
                     <div class="modal-header">
-                        <h5 class="modal-title">Ajouter un mot du jour</h5>
+                        <h3 class="modal-title">Ajouter un mot du jour</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
@@ -520,7 +491,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                     <input type="hidden" name="id_mot" id="em_id">
 
                     <div class="modal-header">
-                        <h5 class="modal-title">Modifier le mot du jour</h5>
+                        <h3 class="modal-title">Modifier le mot du jour</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
@@ -548,7 +519,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                     <input type="hidden" name="id_utilisateur" id="er_id">
 
                     <div class="modal-header">
-                        <h5 class="modal-title">Modifier le rôle — <span id="er_pseudo"></span></h5>
+                        <h3 class="modal-title">Modifier le rôle — <span id="er_pseudo"></span></h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
@@ -576,7 +547,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                     <input type="hidden" name="action" value="add_grille">
 
                     <div class="modal-header">
-                        <h5 class="modal-title">Ajouter une grille</h5>
+                        <h3 class="modal-title">Ajouter une grille</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
@@ -591,7 +562,6 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                             <option value="Moyenne">Moyenne</option>
                             <option value="Difficile">Difficile</option>
                         </select>
-                        <!-- <input name="difficulte" class="form-control" required> -->
 
                         <div class="row mt-2">
                             <div class="col">
@@ -625,7 +595,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                     <input type="hidden" name="id_grille" id="eg_id">
 
                     <div class="modal-header">
-                        <h5 class="modal-title">Modifier la grille</h5>
+                        <h3 class="modal-title">Modifier la grille</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
@@ -664,7 +634,6 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            // Pré-remplir modal rôle
             let modalEditRole = document.getElementById('modalEditRole');
             modalEditRole.addEventListener('show.bs.modal', function (event) {
                 let btn = event.relatedTarget;
@@ -673,7 +642,6 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                 document.getElementById('er_pseudo').innerText = btn.getAttribute('data-pseudo');
             });
 
-            // Pré-remplir modal grille
             let modalEditGrille = document.getElementById('modalEditGrille');
             modalEditGrille.addEventListener('show.bs.modal', function (event) {
                 let btn = event.relatedTarget;
@@ -684,7 +652,6 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
                 document.getElementById('eg_hauteur').value = btn.getAttribute('data-hauteur');
             });
 
-            // Pré-remplir modal mot du jour
             let modalEditMot = document.getElementById('modalEditMot');
             modalEditMot.addEventListener('show.bs.modal', function (event) {
                 let btn = event.relatedTarget;

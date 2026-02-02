@@ -151,7 +151,7 @@ session_start();
             padding: 20px 0;
         }
 
-        .game-complete h5 {
+        .game-complete h3 {
             color: #333;
             margin-bottom: 15px;
         }
@@ -222,10 +222,10 @@ session_start();
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="../index.php">
-                <img src="../assets/logo.png" alt="Logo" height="40" class="me-2">
+                <img src="../assets/logo.webp" alt="Logo" height="40" class="me-2" loading="lazy">
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
