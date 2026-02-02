@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$role, $id]);
             $messages[] = "Rôle mis à jour.";
         }
-        cache_clear_all("users");
 
 
     }
@@ -33,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([':id' => $id]);
             $messages[] = "Utilisateur supprimé.";
         }
-        cache_clear_all("users");
 
     }
     // --- Ajouter grille ---
@@ -58,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $messages[] = "Grille ajoutée.";
         }
-        cache_clear_all("grilles");
 
     }
 
@@ -85,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $messages[] = "Grille mise à jour.";
         }
-        cache_clear_all("grilles");
 
     }
 
@@ -98,7 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([':id' => $id]);
             $messages[] = "Grille supprimée.";
         }
-        cache_clear_all("grilles");
 
     }
 
@@ -120,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $messages[] = "Mot du jour ajouté.";
         }
-        cache_clear_all("mots");
 
     }
 
@@ -143,7 +137,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $messages[] = "Mot du jour modifié.";
         }
-        cache_clear_all("mots");
 
     }
 
@@ -157,15 +150,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $messages[] = "Mot du jour supprimé.";
         }
     }
-    cache_clear_all("mots");
 
 }
 
 // ---------- CHARGER DONNÉES ----------
 
-$users = cache_get("users", 60);
+// $users = cache_get("users", 60);
 
-if ($users === false) {
+// if ($users === false) {
 
     $users = $conn->query("
         SELECT id_utilisateur, email, pseudo, role, date_creation
@@ -173,14 +165,14 @@ if ($users === false) {
         ORDER BY date_creation DESC
     ")->fetchAll(PDO::FETCH_ASSOC);
 
-    cache_set("users", $users);
-}
+//     cache_set("users", $users);
+// }
 
 
 
-$grilles = cache_get("grilles", 60);
+// $grilles = cache_get("grilles", 60);
 
-if ($grilles === false) {
+// if ($grilles === false) {
 
     $grilles = $conn->query("
         SELECT g.id_grille, g.titre, g.difficulte, g.largeur, g.hauteur, g.date_creation,
@@ -190,14 +182,14 @@ if ($grilles === false) {
         ORDER BY g.date_creation DESC
     ")->fetchAll(PDO::FETCH_ASSOC);
 
-    cache_set("grilles", $grilles);
-}
+//     cache_set("grilles", $grilles);
+// }
 
 
 
-$mots = cache_get("mots", 60);
+// $mots = cache_get("mots", 60);
 
-if ($mots === false) {
+// if ($mots === false) {
 
     $mots = $conn->query("
         SELECT m.id_mot, m.mot, m.definition, m.date, m.id_utilisateur,
@@ -207,8 +199,8 @@ if ($mots === false) {
         ORDER BY m.date DESC
     ")->fetchAll(PDO::FETCH_ASSOC);
 
-    cache_set("mots", $mots);
-}
+//     cache_set("mots", $mots);
+// }
 
 
 // Fonction sécurité HTML
