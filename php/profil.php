@@ -53,7 +53,7 @@ if (!$user) {
     $user = ['pseudo' => 'Utilisateur', 'bio' => '', 'avatar' => '', 'date_creation' => '2025-01-01'];
 }
 
-$avatarPath = $user['avatar'] ? $user['avatar'] : "https://via.placeholder.com/120?text=Avatar";
+$avatarPath = $user['avatar'] ? $user['avatar'] : "";
 
 // Statistiques - Temps moyen mots mêlés
 $stmt = $db->prepare("SELECT AVG(score) as moy_temps FROM partie WHERE id_utilisateur = ? AND id_grille IS NOT NULL");
@@ -140,7 +140,9 @@ $historique = $stmt->fetchAll();
                 class="rounded-circle border shadow" 
                 width="120" height="120" 
                 style="object-fit: cover;"
-                alt="Avatar" loading="lazy">
+                alt="Avatar"
+                fetchpriority="high"
+                >
         </div>
         <div class="col">
             <h1 class="fw-bold mb-2"><?php echo htmlspecialchars($user['pseudo']); ?></h1>

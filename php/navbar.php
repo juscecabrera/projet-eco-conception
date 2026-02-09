@@ -2,7 +2,7 @@
 <nav class="navbar avbar-expand-lg navbar-light bg-white border-bottom position-relative">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="../index.php">
-            <img src="../assets/logo.webp" alt="Logo" height="40" width="131" class="me-2" loading="lazy"> 
+            <img src="../assets/logo.webp" alt="Logo" height="40" width="131" class="me-2" fetchpriority="high"> 
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="button">
