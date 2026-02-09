@@ -118,7 +118,7 @@ $historique = $stmt->fetchAll();
     <meta name="description" content="Mot du Jour et Mots Melees">
     <title>Profil - <?php echo htmlspecialchars($user['pseudo']); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.min.css">
 </head>
 <body class="bg-white text-dark">
 <!-- NAVBAR -->

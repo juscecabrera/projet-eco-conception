@@ -16,7 +16,7 @@ session_start();
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/styles.min.css">
 </head>
 <meta>
 <body class="bg-white text-dark">
@@ -51,6 +51,7 @@ session_start();
         </div>
     </div>
 </nav>
+
 
 <!-- ================= HERO ================= -->
 <header class="bg-light border-bottom py-5">

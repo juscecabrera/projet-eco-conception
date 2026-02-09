@@ -1,8 +1,10 @@
 <?php
     session_start();
 
+    $start = microtime(true);
+
     require_once __DIR__ . '/../includes/db.php';
-    $stmt = $pdo ->prepare("SELECT * FROM grille ORDER BY date_creation DESC");
+    $stmt = $pdo ->prepare("SELECT difficulte, id_grille FROM grille ORDER BY date_creation DESC");
     $stmt->execute();
     $grilles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -14,7 +16,7 @@
         <meta charset="UTF-8">
         <title>Jeux</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="../css/styles.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <style>
             .nav-link-custom {
@@ -136,6 +138,10 @@
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php
+            $elapsed = microtime(true) - $start;
+        ?>
+        <p><strong>Temps d’exécution :</strong> <?= number_format($elapsed, 4) ?> s</p>
 
     </body>
 </html>

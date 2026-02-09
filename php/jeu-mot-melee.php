@@ -7,7 +7,7 @@ session_start();
     <meta charset="UTF-8">
     <title>Jeu de Mots Mêlés</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.min.css">
     <style>
         body {font-family: 'Inter';}
 
@@ -633,7 +633,7 @@ session_start();
             ]);
         }
 
-        exit; // Terminer l'exécution pour les requêtes AJAX
+        exit;
     }
     ?>
 </body>

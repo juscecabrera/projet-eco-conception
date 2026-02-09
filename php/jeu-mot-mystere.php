@@ -24,7 +24,6 @@ $conn = $pdo;
     $insertPartie->bindParam(':id_mot', $currentMotId);
     $insertPartie->execute();
     $currentPartieId = $conn->lastInsertId();
-
 ?>
 
 <!DOCTYPE html>
@@ -33,12 +32,11 @@ $conn = $pdo;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mot du Jour et Mots Melees">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Mot Mystere</title>
     <style>
         body { font-family: 'Inter'; margin-top: 0rem; }
-        /* JEU */
         .game-grid {
             display: grid;
             grid-template-columns: 1;
@@ -134,7 +132,6 @@ $conn = $pdo;
             font-weight: bold;
             font-size: xx-large;
         }
-
         
         #end-screen {
             display: none;
